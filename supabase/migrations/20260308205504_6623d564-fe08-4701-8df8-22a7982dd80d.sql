@@ -1,0 +1,1 @@
+ALTER TABLE public.hr_notifications ADD COLUMN audience text NOT NULL DEFAULT 'all';

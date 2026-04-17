@@ -1,0 +1,19 @@
+project_id = "mpgnmniyppiztzmuqkjl"
+
+[functions.hr-assistant]
+verify_jwt = false
+
+[functions.onboarding-invite]
+verify_jwt = false
+
+[functions.social-work-assistant]
+verify_jwt = false
+
+[functions.candidate-rejection-email]
+verify_jwt = false
+
+[functions.designation-change-email]
+verify_jwt = false
+
+[functions.crisis-call]
+verify_jwt = false
