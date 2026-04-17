@@ -1,73 +1,122 @@
-# Welcome to your Lovable project
+# Anuvati Foundational Framework
 
-## Project info
+A full-stack web platform for **Anuvati** — a nonprofit organization managing public-facing content, internal HR operations, and program/CRM workflows from a single codebase.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## Overview
 
-## How can I edit this code?
+| Layer | Technology |
+|-------|-----------|
+| Frontend | React 18 + TypeScript + Vite |
+| UI | shadcn/ui + Radix UI + Tailwind CSS |
+| Animations | Framer Motion |
+| Backend / Auth / DB | Supabase (Postgres + Auth + Storage) |
+| Forms | React Hook Form + Zod |
+| Data fetching | TanStack Query v5 |
+| Charts | Recharts |
+| PDF export | jsPDF + jsPDF-AutoTable |
 
-There are several ways of editing your application.
+## Project Structure
 
-**Use Lovable**
+```
+frontend/
+└── src/
+    ├── pages/
+    │   ├── (public)        # Home, About, Blog, Campaigns, Events, Donate, …
+    │   ├── crm/            # Program CRM — students, teachers, sessions, funders, …
+    │   └── hr/             # Internal HR — employees, payroll, leave, recruitment, …
+    ├── components/
+    │   ├── home/           # Landing-page sections
+    │   ├── layout/         # Nav, footer, shell
+    │   ├── shared/         # Reusable cross-feature components
+    │   └── ui/             # shadcn/ui primitives
+    ├── contexts/           # AuthContext (Supabase session)
+    ├── hooks/              # Custom React hooks
+    ├── integrations/       # Supabase client + generated types
+    └── data/               # Static/seed data
+supabase/
+    ├── migrations/         # SQL migrations
+    └── functions/          # Edge functions
+```
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+## Getting Started
 
-Changes made via Lovable will be committed automatically to this repo.
+### Prerequisites
 
-**Use your preferred IDE**
+- Node.js 18+ and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- A Supabase project — [supabase.com](https://supabase.com)
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+### Local Development
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
+# 1. Clone the repository
 git clone <YOUR_GIT_URL>
+cd anuvati-foundational-framework
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# 2. Install dependencies
+cd frontend
+npm install
 
-# Step 3: Install the necessary dependencies.
-npm i
+# 3. Configure environment variables
+cp .env.example .env
+# Fill in VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# 4. Start the dev server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+The app will be available at `http://localhost:5173`.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Available Scripts
 
-**Use GitHub Codespaces**
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start dev server with HMR |
+| `npm run build` | Production build |
+| `npm run preview` | Preview production build locally |
+| `npm run lint` | Run ESLint |
+| `npm run test` | Run Vitest test suite |
+| `npm run test:watch` | Watch mode for tests |
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Key Features
 
-## What technologies are used for this project?
+### Public Site
+- Landing page with hero, impact stats, focus areas, campaigns, news, and partner strip
+- About, Our Story, Our Team, Advisory Board, Governance, Transparency pages
+- Blog / Knowledge Hub with markdown rendering
+- Donate, Get Involved, Partner With Us, Careers, Events, Contact pages
+- Social Days program page and Safeguarding banner
 
-This project is built with:
+### CRM (Program Management)
+Role-gated internal portal covering:
+- Students, teachers, schools, sessions, attendance
+- Funders, payments, issues, gallery, reports
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### HR Module
+Full employee lifecycle management:
+- Employees, departments, recruitment, onboarding/offboarding
+- Payroll, leave, attendance, performance, training
+- Assets, compliance, grievances, CSR, volunteers, projects
 
-## How can I deploy this project?
+## Authentication
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+Authentication is handled by Supabase Auth via `AuthContext`. The CRM and HR modules require login (`CrmLogin` / Supabase session). Role-based access is enforced at the route level.
 
-## Can I connect a custom domain to my Lovable project?
+## Database
 
-Yes, you can!
+Migrations live in `supabase/migrations/`. Apply them with the Supabase CLI:
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+```sh
+supabase db push
+```
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## Deployment
+
+Build the frontend and serve the `dist/` folder from any static host (Vercel, Netlify, Cloudflare Pages, etc.). Point `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` as environment variables in your host dashboard.
+
+```sh
+npm run build   # outputs to frontend/dist/
+```
+
+## Contact
+
+**Anuvati** — [contact@anuvati.org](mailto:contact@anuvati.org)
